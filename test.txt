@@ -1,0 +1,53 @@
+#include<iostream>
+#include<unordered_map>
+using namespace std;
+
+int main() 
+{ 
+	unordered_map<int, char> mp; 
+
+	// insert elements in random order 
+	mp.insert({ 2, 'A' }); 
+	mp.insert({ 1, 'B' }); 
+	mp.insert({ 3, 'C' }); 
+    mp.insert({ 4, 'D' }); 
+    mp.insert({ 5, 'E' }); 
+    mp.insert({ 6, 'C' }); 
+
+
+	// does not inserts key 2 with element 20 
+	mp.insert({ 7, 'D' }); 
+	mp.insert({ 8, 'E' }); 
+
+	// prints the elements before deleting
+    cout<<"Before deleting repeated values on MAP"<<endl;
+	cout << "KEY\tELEMENT\n"; 
+    unordered_map<int, char>:: iterator itr1;
+	for (itr1 = mp.begin(); itr1 != mp.end(); ++itr1) { 
+		cout << itr1->first 
+			<< '\t' << itr1->second << '\n'; 
+	} 
+
+   
+   //deleting repeated values from the MAP
+   cout<<"Deleted Key  &  Value for that Key"<<endl;
+   unordered_map<int, char>:: iterator itr2;
+   for (itr2=mp.begin(); itr2!=mp.end(); itr2++) 
+   {
+      if (mp.find(itr2->second)) 
+      {
+         cout<<itr2->first<<"-->"<<itr2->second<<endl;
+         mp.erase(itr2->first);
+      }
+   }
+
+   //After deleted block
+   cout<<"After deleted repeated values on MAP"<<endl;
+   cout << "KEY\tELEMENT\n"; 
+   unordered_map<int, char>:: iterator itr3;
+	for (itr3 = mp.begin(); itr3 != mp.end(); ++itr3) { 
+		cout << itr3->first 
+			<< '\t' << itr3->second << '\n'; 
+	}
+	return 0; 
+} 

@@ -1,0 +1,14 @@
+#include<iostream>
+using namespace std;
+
+inline void display()
+{
+    int x =2;
+    int y =3;
+    cout<<"value::>> "<<x+y<<endl;
+}
+int main()
+{
+display();
+return 0;
+}

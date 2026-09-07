@@ -1,0 +1,81 @@
+// Online C++ compiler to run C++ program online
+#include <iostream>
+using namespace std;
+
+class shape
+{
+  public:
+  virtual void draw()=0;
+  virtual ~shape()
+  {
+      cout<<"Desc Shape"<<endl;
+  }
+};
+class tri_shape : public shape
+{
+  public:
+  void draw()
+  {
+      cout<<"Draw tri_shape"<<endl;
+  }
+};
+class squ_shape : public shape
+{
+  public:
+  void draw()
+  {
+    cout<<"Draw squ_shape"<<endl; 
+  }
+};
+
+
+class shape_fectory
+{
+  public:
+  virtual shape *create_shape()=0;
+  virtual ~shape_fectory()
+  {
+      cout<<"Desc shape_fectory"<<endl;
+  }
+};
+
+class tri_fectory : public shape_fectory
+{
+    public:
+    shape *create_shape()
+    {
+        cout<<"Create tri_Fec"<<endl; 
+        return new tri_shape();
+    }
+};
+
+class squ_fectory : public shape_fectory
+{
+    public:
+    shape *create_shape()
+    {
+        cout<<"Create squ_Fec"<<endl; 
+        return new squ_shape();
+    }
+};
+
+int main() 
+{
+    shape_fectory *obj_tri_fectory = new tri_fectory();
+    shape_fectory *obj_squ_fectory = new squ_fectory();
+    
+    shape *tri_shape = obj_tri_fectory->create_shape();
+    shape *squ_shape = obj_squ_fectory->create_shape();
+    
+    tri_shape->draw();
+    squ_shape->draw();
+    
+    delete tri_shape;
+    delete squ_shape;
+    
+    delete obj_tri_fectory;
+    delete obj_squ_fectory;
+    
+
+    return 0;
+}

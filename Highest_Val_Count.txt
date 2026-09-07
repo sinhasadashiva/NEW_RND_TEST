@@ -1,0 +1,26 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int arr[] = {1,3,7,9,2,4,8,5,9,2,2,9,9,8,8,8};
+    int count = 1;
+    int max=arr[0];
+    int len = sizeof(arr)/sizeof(arr[0]);
+
+    for(int i =1 ;i<len;i++)
+    {
+	    if(arr[i]>max)
+	    {
+		    max = arr[i];
+		}
+	    else if(arr[i] == max)
+	    {
+		    count++;
+	    }
+    }
+    cout<<endl;
+    cout<<"Max::>> "<<max<<" & Count::>> "<<count<<endl;
+    return 0;
+}

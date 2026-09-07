@@ -1,0 +1,23 @@
+#include<iostream>
+#include<map>
+using namespace std;
+
+void display_second_large(int arr[], int n) 
+{
+   map<int, int> mp;
+   for (int i=0; i<n; i++)
+   {
+        mp[arr[i]]++;
+   }
+  
+   
+   auto i2 = next(mp.end(), -2);
+   cout<<"2nd Large value::>> "<<i2->first<<endl;
+}
+
+int main() 
+{
+   int arr[] = {12, 15, 12, 3, 6, 12, 3, 48, 56, 8, 48,100};
+   int n = sizeof(arr) / sizeof(arr[0]);
+   display_second_large(arr, n);
+}

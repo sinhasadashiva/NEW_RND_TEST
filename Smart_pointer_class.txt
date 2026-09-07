@@ -1,0 +1,113 @@
+ #include<iostream>
+using namespace std;
+
+template <class T>
+
+class smart_cls
+{
+   T *m_ptr ;
+   
+   public:
+   explicit smart_cls(T *tmp_ptr=NULL)
+   {
+       m_ptr=tmp_ptr;
+   }
+   ~smart_cls()
+   {
+       delete m_ptr;
+   }
+   
+   T &operator*()
+   {
+       return *m_ptr;
+   }
+   
+   T *operator->()
+   {
+       return m_ptr;
+   }
+};
+
+int main()
+{
+    smart_cls<int>obj_ptr(new int()) ;
+    *obj_ptr = 100;
+    cout<<"Value::>> "<<*obj_ptr<<endl;
+    
+    smart_cls<string>obj_ptr_1(new string()) ;
+    *obj_ptr_1 = "FIS";
+    cout<<"String Value::>> "<<*obj_ptr_1;
+    return 0;
+}
+
+
+
+
+/******************************************************************************
+
+                              Online C++ Compiler.
+               Code, Compile, Run and Debug C++ program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+#include <bits/stdc++.h>
+#include <iostream>
+#include<mutex>
+using namespace std;
+
+template<class T>
+
+class smart_cls
+{
+  T *ptr;
+  public:
+  smart_cls(T *value)   
+  {
+     ptr =  value;
+     //student
+     
+     //ptr = new */
+     //strcpy(ptr,value)
+  }
+  
+  ~smart_cls()
+  {
+      cout<<"Des"<<endl;
+  }
+  
+  T & operator *()
+  {
+      cout<<"Hi"<<endl;
+      return *ptr;
+  }
+  
+  
+  T * operator ->()
+  {
+      cout<<"Hello"<<endl;
+      return ptr;
+  }
+  
+  void show()
+  {
+      cout<<"value::>> "<<*ptr<<endl;
+  }
+  
+  
+};
+int main()
+{
+    smart_cls<int>obj_1(new int);
+    
+    *obj_1 = 100;
+   
+    obj_1.show();
+    
+    smart_cls<string>obj_2(new string);
+    
+    *obj_2 = "HELP";
+   
+    obj_2.show();
+   
+    return 0;
+}

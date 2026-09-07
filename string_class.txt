@@ -1,0 +1,124 @@
+/******************************************************************************
+
+                              Online C++ Compiler.
+               Code, Compile, Run and Debug C++ program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+//#include <bits/stdc++.h>
+#include <iostream>
+#include <cstring>
+#include <string>
+using namespace std;
+
+class cls_string
+{
+  char *ptr;
+  int len;
+  public: 
+  cls_string()
+  {
+      cout<<"default cons"<<endl;
+    const char *str = "sada";
+
+    len = strlen(str);
+    ptr = new char[len + 1];
+
+    strcpy(ptr, str);
+  }
+  cls_string(const char *str)
+  {
+      cout<<"parameter cons"<<endl;
+      len = strlen(str);
+      ptr = new char[len+1];
+      strcpy(ptr,str);
+  }
+  cls_string(const cls_string &obj)
+  {
+      cout<<"Deep Copy cons"<<endl;
+      len = obj.len;
+      ptr = new char[strlen(obj.ptr)+1];
+      strcpy(ptr,obj.ptr);
+  }
+  /*cls_string(cls_string&& obj) 
+  {
+        ptr = obj.ptr;
+        obj.ptr = nullptr;
+        cout << "Move constructor called" << endl;
+  }*/
+  
+  
+  // Disable copy constructor and copy assignment operator
+  
+  //cls_string(const cls_string &) = delete;
+  //cls_string operator=(const cls_string &) = delete;
+  
+  
+  cls_string& operator=(const cls_string &obj)
+  {
+      cout<<"Deep Operator cons"<<endl;
+      if(this != &obj)
+      {
+        delete [] this->ptr;
+        len = obj.len;
+        ptr = new char[strlen(obj.ptr)+1];
+        strcpy(ptr,obj.ptr);
+      }
+      
+      return *this;
+  }
+  /*cls_string& operator=(cls_string&& obj)
+  {
+    if (this != &obj) 
+    {
+        delete [] this->ptr; // Free existing resource
+        ptr = obj.ptr; // Transfer ownership
+        obj.ptr = nullptr; // Nullify source
+        cout << "Move assignment called" << endl;
+    }
+    
+    return *this;
+    
+  }*/
+  
+  ~cls_string()
+  {
+     // cout<<"Destructor"<<endl;
+      delete [] ptr;
+  }
+  void display()
+  {
+      cout<<"------------------"<<endl; 
+      cout<<"string is::>> "<<ptr<<endl; 
+      cout<<"------------------"<<endl; 
+  }
+};
+
+int main()
+{
+   // std::cout<<"Hello World"<<endl;
+    
+    cls_string s1("FIS");
+    cls_string s2=s1;
+    cls_string s3("OPUS");
+    s3.display();
+    s3=s2;
+    s1.display();
+    s2.display();
+    s3.display();
+	
+	
+	/*cls_string s1("FIS");
+    //cls_string s2=s1;
+    s1.display();
+    cls_string s2=move(s1);
+    cls_string s3("OPUS");
+    s3.display();
+    s3=move(s2);
+   // s3=s2;
+   // s2.display();
+    
+    s3.display();*/
+
+    return 0;
+}

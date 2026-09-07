@@ -1,0 +1,116 @@
+#include "iostream"
+#include "thread"
+#include "mutex"
+#include "condition_variable"
+#include <chrono>
+using namespace std;
+
+mutex mute_var;
+condition_variable cond_var;
+
+int no_elem = 1;
+
+void odd_print(int x)
+{
+  for(;no_elem<x;no_elem++)
+  {
+    unique_lock<mutex>mute_locker(mute_var);
+    cond_var.wait(mute_locker,[](){return (no_elem%2==1);});
+    cout<<"ODD Numer:> "<<no_elem<<endl;
+    this_thread::sleep_for(chrono::seconds(1));
+    cond_var.notify_all();
+  }
+}
+
+void even_print(int x)
+{
+  for(;no_elem<x;no_elem++)
+  { 
+    unique_lock<mutex>mute_locker(mute_var);
+    cond_var.wait(mute_locker,[](){return (no_elem%2==0);});
+    cout<<"EVEN Numer:>  "<<no_elem<<endl;
+    this_thread::sleep_for(chrono::seconds(1));
+    cond_var.notify_all();
+  }
+}
+
+int main()
+{
+  int x = 10;
+  
+  thread t1(odd_print,x);
+  thread t2(even_print,x);
+  
+  t1.join(); 
+  t2.join();
+  
+  return 0;
+}
+
+
+
+
+----------------------------------------------------------------------------------
+
+
+
+
+#include <iostream>
+#include <thread>
+#include <mutex>
+#include <chrono>
+
+using namespace std;
+
+mutex mtx_var;
+int no_elem = 1;
+
+void odd_print(int x)
+{
+    for(;no_elem<=x;)
+    {
+        {
+            lock_guard<mutex> lock(mtx_var);
+            
+            if (no_elem % 2 == 1)
+            {
+                cout << "ODD  : " << no_elem << endl;
+                no_elem++;
+            }
+        } 
+
+        this_thread::sleep_for(chrono::seconds(1));
+        
+    }
+}
+
+void even_print(int x)
+{
+    for(;no_elem<=x;)
+    {
+        {
+            lock_guard<mutex> lock(mtx_var);
+            
+            if (no_elem % 2 == 0)
+            {
+                cout << "EVEN : " << no_elem << endl;
+                no_elem++;
+            }
+        } 
+
+        this_thread::sleep_for(chrono::seconds(1));
+    }
+}
+
+int main()
+{
+    int x = 10;
+
+    thread t1(odd_print, x);
+    thread t2(even_print, x);
+
+    t1.join();
+    t2.join();
+
+    return 0;
+}

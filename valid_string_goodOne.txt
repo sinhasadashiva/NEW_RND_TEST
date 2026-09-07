@@ -1,0 +1,88 @@
+#include <iostream>
+#include <stack>
+
+using namespace std;
+ 
+bool str_validate(char fst_str, char scd_str)
+{
+    
+    if((fst_str == '{' && scd_str == '}') || (fst_str == '[' && scd_str == ']') || (fst_str == '(' && scd_str == ')'))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    } 
+}
+
+void check_string(string Org,int len)
+{
+    stack<char>st;
+    
+    bool valid_str_status = false;
+    
+    char del_char='~';
+    
+    static int count = 0;
+    
+    
+    
+    for(int i=0;i<len;i++)
+    {
+        if(Org[i] == '{' || Org[i] == '[' || Org[i] == '(' )
+        {
+            st.push(Org[i]);
+            count++;
+        }
+        
+        if(Org[i] == '}' || Org[i] == ']' || Org[i] == ')' )
+        {
+            count--;
+            
+            if(!st.empty())
+            {
+                 del_char = st.top();
+            }
+            
+           cout<<"Open Bracket::>> "<<del_char<<" "<<"Close Bracket::>> "<<Org[i]<<endl;
+           
+           st.pop();
+            
+           valid_str_status = str_validate(del_char,Org[i]);
+           
+           cout<<"OutSide valid_str_status::>> "<<valid_str_status<<" "<<"count::>> "<<count<<endl;
+           
+           if(valid_str_status == true)
+           {
+               continue;
+           }
+           else
+           {
+               break;
+           }
+        }
+    }
+    
+    cout<<"OutSide valid_str_status::>> "<<valid_str_status<<" "<<"count::>> "<<count<<endl;
+    
+    if(valid_str_status == true && count == 0)
+    {
+        cout<<"Valid Sting"<<endl;
+    }
+    else
+    {
+        cout<<"In-Valid Sting"<<endl;   
+    }
+}
+
+int main()
+{
+    string s = "([i ]li{ke t}his)";
+    
+    int len = s.length();
+    
+    check_string(s,len);
+   
+    return 0;
+}

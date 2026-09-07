@@ -1,0 +1,45 @@
+#include <iostream>
+#include <memory>
+
+using namespace std;
+
+class Player;
+
+class Team
+{
+  public:
+  shared_ptr<Player> WK_Player;
+  ~Team()
+  {
+      cout<<"Team Destr"<<endl;
+  }
+};
+
+class Player
+{
+  public:
+  //shared_ptr<Team> India_Team;
+  weak_ptr<Team> India_Team;
+  ~Player()
+  {
+      cout<<"Player Destr"<<endl;
+  }
+};
+
+int main()
+{
+    //std::cout<<"Hello World";
+    auto India_obj = make_shared<Team>();
+    auto MS_Dhoni_obj = make_shared<Player>();
+    
+    //shared_ptr<Team> India_obj = make_shared<Team>();
+    //shared_ptr<Player> MS_Dhoni_obj = make_shared<Player>();
+	
+	//shared_ptr<Team> India_obj (new Team());
+    //shared_ptr<Player> MS_Dhoni_obj (new Player());
+    
+    India_obj->WK_Player = MS_Dhoni_obj;
+    MS_Dhoni_obj->India_Team = India_obj;
+
+    return 0;
+} 

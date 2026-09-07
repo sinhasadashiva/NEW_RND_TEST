@@ -1,0 +1,26 @@
+CMD
+----
+mysql -u root -p
+
+
+MSYS2
+------
+mariadb -u root -p
+
+
+DISPLAY
+--------
+show databases;
+
+
+SELECT DB
+----------
+use DB_NAME;
+
+
+
+COMPILE  C file with parameters
+----------------------------------
+gcc connect.c -o connect.exe $(mariadb_config --cflags --libs)
+
+g++ server.cpp -o server.exe -lws2_32  for TCP/IP

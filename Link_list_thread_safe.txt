@@ -1,0 +1,91 @@
+#include<iostream>
+#include<mutex>
+#include <thread>
+#include <vector>
+using namespace std;
+   
+   class link_list
+   {
+     typedef struct Node_list
+     {
+        int value;
+        Node_list *nxt;
+     } Node_Obj;
+     
+     mutex mutex_obj;
+     
+     Node_Obj *HEAD;
+     
+     public:
+     
+     link_list()
+     {
+         HEAD = NULL;
+     }
+     
+     void create(int x)
+     {
+       lock_guard<mutex>mutex_locker(mutex_obj);
+	   
+       Node_Obj *temp = new Node_Obj();
+       
+       temp->value = x;
+       
+       temp->nxt = HEAD;
+       
+       HEAD = temp;
+     }
+     
+     void display()
+     {
+         lock_guard<mutex>mutex_locker(mutex_obj);
+		 
+         Node_Obj *temp = HEAD;
+         
+         while(temp != NULL)
+         {
+             cout<<temp->value<<"  ";
+             temp=temp->nxt;
+         }
+     }
+   };
+   
+   int main()
+   {
+     link_list *Node = new link_list();
+
+	 /*vector<thread>threads;
+
+     for(auto i =0;i<3;i++)
+     {
+        threads.emplace_back(thread([&,i](){ 
+     
+        Node->create(i); 
+     
+        }));
+     }
+
+     for(auto& t: threads)
+     {
+        if(t.joinable())
+        {
+            t.join();
+        }
+     }*/
+
+
+     thread t1([&]() {
+         Node->create(3);
+         });
+    
+     thread t2([&]() {
+         Node->create(10);
+         });
+         
+         t1.join();
+         t2.join();
+         
+         Node->display();
+         
+     return 0;
+   }

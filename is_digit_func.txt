@@ -1,0 +1,28 @@
+#include <iostream>
+
+using namespace std;
+
+bool isNumber(char s)
+{
+       int S_C = (int)s;    
+       if (S_C>=48 && S_C<=57)
+       {
+            cout<<"number "<<endl;
+            return true;
+       }
+       cout<<"alphabet "<<endl;
+    
+    return false;
+}
+
+int main()
+{
+    char a;
+    bool a1;
+    cout<<"enter the value>> ";
+    cin>>a;
+    
+    a1 = isNumber(a);
+    
+   return 0;
+}

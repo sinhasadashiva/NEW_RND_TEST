@@ -1,0 +1,80 @@
+#include <iostream>
+#include <vector>
+//#include <mutex>
+#include <thread>
+
+using namespace std;
+
+class Singleton
+{
+private:
+
+Singleton()
+{
+cout<<"Cons"<<endl;
+}
+
+~Singleton()
+{
+cout<<"Desc"<<endl;
+}
+public:
+static Singleton& getInstance()
+{
+    static Singleton single;
+    return single;
+}
+};
+int main()
+{
+/*
+    thread t1(Singleton::getInstance);
+   
+    thread t2(Singleton::getInstance);
+       
+    t1.join();
+    t2.join();
+*/
+
+//----------------------------------------------------------
+
+/*
+	thread t[3];
+       for(int i =0;i<3;i++)
+       {
+            t[i] = thread([](){
+             Singleton::getInstance();
+       
+            });
+       }
+   
+   for(int i =0;i<3;i++)    
+   if(t[i].joinable())
+    {
+        t[i].join();
+    }
+*/
+
+//----------------------------------------------------------
+
+vector<thread>threads;
+
+for(auto i =0;i<3;i++)
+{
+    threads.emplace_back(thread([](){ 
+     
+      Singleton::getInstance(); 
+     
+    }));
+}
+
+for(auto& t: threads)
+{
+    if(t.joinable())
+    {
+        t.join();
+    }
+}
+
+return 0;
+}

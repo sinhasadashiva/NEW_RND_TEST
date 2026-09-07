@@ -1,0 +1,117 @@
+// Online C compiler to run C program online
+#include <stdio.h>
+#include <malloc.h>
+
+typedef struct School
+{
+  int value;
+  struct School *next_ptr;
+}Student;
+
+Student *HEAD = NULL;
+
+void create_node(int x)
+{
+    Student *new_node = (Student*)malloc(sizeof(Student));
+    new_node->value = x;
+    new_node->next_ptr = HEAD;
+    HEAD = new_node;
+}
+
+void delete_node_begin()
+{
+    Student *temp_node = HEAD;
+    HEAD = temp_node->next_ptr ;
+    free(temp_node);
+}
+
+void add_node_middle(int x,int pos)
+{
+    Student *new_node = (Student*)malloc(sizeof(Student));
+    int curr_pos = 0;
+    Student *temp_node = HEAD;
+    while(temp_node->next_ptr != NULL && curr_pos < pos)
+    {
+        temp_node=temp_node->next_ptr;
+        curr_pos++;
+    }
+    
+    new_node->value = x;
+    new_node->next_ptr = temp_node->next_ptr;
+    temp_node->next_ptr = new_node;
+}
+
+void delete_node_middle(int pos)
+{ 
+    int curr_pos = 1;
+    Student *temp_node = HEAD;
+    Student *temp_Mid_node;
+    while(temp_node->next_ptr != NULL && curr_pos < pos)
+    {
+        temp_node=temp_node->next_ptr;
+        curr_pos++;
+    }
+    temp_Mid_node = temp_node->next_ptr;
+    temp_node->next_ptr = temp_Mid_node->next_ptr;
+    free(temp_Mid_node);
+    
+}
+
+void add_node_end(int x)
+{
+    Student *new_node = (Student*)malloc(sizeof(Student));
+    Student *temp_node = HEAD;
+    while(temp_node->next_ptr!= NULL)
+    {
+        temp_node=temp_node->next_ptr;
+    }
+    new_node->value = x;
+    temp_node->next_ptr = new_node;
+    new_node->next_ptr = NULL;
+}
+
+void delete_node_end()
+{
+    Student *temp_node = HEAD;
+    Student *temp_last_node;
+    while(temp_node->next_ptr->next_ptr!= NULL)
+    {
+        temp_node=temp_node->next_ptr;
+    }
+    temp_last_node = temp_node->next_ptr;
+    temp_node->next_ptr = NULL;
+    free(temp_last_node);
+}
+
+void display_nodes()
+{
+    Student *temp_node = HEAD;
+    printf("Nodes are::>> ");
+    while(temp_node!= NULL)
+    {
+        printf("%d",temp_node->value);
+        temp_node=temp_node->next_ptr;
+        printf("\n");
+    }
+    printf("\n");
+}
+int main() 
+{
+create_node(3);
+create_node(10);
+create_node(30);
+create_node(7);
+display_nodes();
+printf("---------------\n");
+printf("---------------\n");
+add_node_middle(20,2);
+add_node_end(100);
+display_nodes();
+printf("---------------\n");
+printf("---------------\n");
+//delete_node_begin();
+//delete_node_end();
+delete_node_middle(1);
+display_nodes();
+    return 0;
+}

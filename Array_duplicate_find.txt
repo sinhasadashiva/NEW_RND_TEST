@@ -1,0 +1,30 @@
+#include<iostream>
+
+using namespace std;
+
+
+ int main()
+ {
+  int i,j,no;
+  int count = 1;
+  int arr[] = {7,9,3,7,3,8,5,5};
+  no = sizeof(arr)/sizeof(arr[0]);
+  
+  cout<<"Dublicate Values are: ";
+  for(i=0; i<no; i++)
+   {
+    for(j=i+1;j<no;j++)
+    {
+    if(arr[i]==arr[j])
+    {
+        
+        if(count>1)
+            cout<<", "<<arr[i];
+        else
+            cout<<arr[i]; 
+        count++;
+    }
+   }
+   }
+   return 0;
+ }

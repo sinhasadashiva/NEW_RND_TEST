@@ -1,0 +1,9 @@
+ delete duplicate records
+ ===============================
+ DELETE e2 FROM employee e1 JOIN employee e2 ON e1.salary = e2.salary AND e1.id > e2.id;
+ 
+ 
+ Second Highest value find
+ =============================
+ select distinct salary from employee order by salary DESC limit 1 offset 1;
+ 

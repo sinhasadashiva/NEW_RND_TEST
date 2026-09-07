@@ -1,0 +1,59 @@
+#include<iostream>
+using namespace std;
+   
+   class link_list
+   {
+     typedef struct Node_list
+     {
+        int value;
+        Node_list *nxt;
+     } Node_Obj;
+     
+     Node_Obj *HEAD;
+     
+     public:
+     
+     link_list()
+     {
+         HEAD = NULL;
+     }
+     
+     void create(int x)
+     {
+       Node_Obj *temp = new Node_Obj();
+       
+       temp->value = x;
+       
+       temp->nxt = HEAD;
+       
+       HEAD = temp;
+     }
+     
+     void display()
+     {
+         Node_Obj *temp = HEAD;
+         
+         while(temp != NULL)
+         {
+             cout<<temp->value<<"  ";
+             temp=temp->nxt;
+         }
+     }
+   };
+   
+   int main()
+   {
+     link_list *Node = new link_list();
+     Node->create(3);
+     Node->create(10);
+     Node->display();
+     return 0;
+   }
+   
+  
+   
+  
+   
+   
+   
+   

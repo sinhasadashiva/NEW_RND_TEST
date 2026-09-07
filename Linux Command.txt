@@ -1,0 +1,132 @@
+:g/^$/d (in the file) delete empty lines in the file
+
+sed -i s/old string/new string/g filename
+
+find . -type f | xargs grep -i "string_name" (find the string in a folder files and sub folder files also)
+
+ls | head -1 (first line means 1st file)
+
+ls | tail -1 (last line means last file)
+
+find . -iname filename (case not sensitive)
+
+find . -name filename (case sensitive)
+
+cat | rev filename (all lines are reverse format)
+
+tac filename (descending format)
+
+tail -F filename (we can see the changes without opened file)
+
+set nu (display line numbers)
+
+:1,3co2 (copy from 1st line 3rd line and paste after 2nd line)
+
+ls -d */ display only folders
+
+
+------------------------------------------------------------------------------------------------------------------
+localhost:~# grep -i 'bare metal' test.txt  //ignore capslock line
+bare Metal is 1 st
+bare metal is 2 nd
+Bare metal is 3 rd
+Bare Metal is 4 th
+-------------------------------------------------------
+localhost:~# grep -v 'bare metal' test.txt  //ignore matching line
+bare Metal is 1 st
+Bare metal is 3 rd
+Bare Metal is 4 th
+-------------------------------------------------------
+localhost:~# grep -w 'bare metal' test.txt  //find whole line/word matching
+bare metal is 2 nd
+-------------------------------------------------------
+localhost:~# grep -r 'bare metal' *  //find whole line/word matching  file name  (***)
+test.txt:bare metal is 2 nd
+-------------------------------------------------------
+localhost:~# grep -x 'bare metal' *.txt //find whole line/word matching  file name & shold not carry any other character
+uat.txt:bare metal
+-------------------------------------------------------
+localhost:~# grep 'bare metal' test.txt //find whole lines/word matching  file name  (***)
+bare metal is 2 nd
+-------------------------------------------------------
+localhost:~# grep -l 'bare metal' *    //list all matched word/line files name
+test.txt
+uat.txt
+-------------------------------------------------------
+localhost:~# grep -c 'bare metal' *.txt  /7/find whole lines/word matching  with file name & number maching line count on each file
+test.txt:1
+uat.txt:3
+-------------------------------------------------------
+localhost:~# grep -o 'bare metal' uat.txt   //find whole lines/word matching lines on each file
+bare metal
+bare metal
+bare metal
+localhost:~# grep -o 'bare metal' test.txt
+bare metal
+ocalhost:~# grep -o 'bare metal' *.txt
+test.txt:bare metal
+uat.txt:bare metal
+uat.txt:bare metal
+uat.txt:bare metal
+-------------------------------------------------------
+localhost:~# grep -m2 'bare metal' uat.txt   // find whole lines/word matching & also commanding 2 times 3 times on m2 & m3
+bare metal
+bare metal
+-------------------------------------------------------
+localhost:~# grep -A 2 'bare metal' uat.txt  // display whole lines/word maching & After 2 of the lines
+bare metal
+Bare metal is 3 rd
+Bare Metal is 4 th
+bare metal
+bare metal
+bare metal
+-------------------------------------------------------
+localhost:~# grep -B 2 'bare metal' test.txt   // dispaly whole lines/word maching & Before 2 of the lines
+bare Metal is 1 st
+bare metal is 2 nd
+-------------------------------------------------------
+localhost:~# grep -C 1 'bare metal' test.txt  // Maching lines/word & display 1 line before & 1 line after.
+bare Metal is 1 st
+bare metal is 2 nd
+Bare metal is 3 rd
+localhost:~# grep -C 2 'bare metal' test.txt  // Maching lines/word & display 2 line before & 2 line after.
+bare Metal is 0 th
+bare Metal is 1 st
+bare metal is 2 nd
+Bare metal is 3 rd
+Bare Metal is 4 th
+-------------------------------------------------------
+localhost:~# grep -n -C 1 'bare metal' test.txt  // Maching lines/word & display 1 line before & 1 line after. (with serial number)
+2-bare Metal is 1 st
+3:bare metal is 2 nd
+4-Bare metal is 3 rd
+localhost:~# grep -n -C 2 'bare metal' test.txt  // Maching lines/word & display 2 line before & 2 line after. (with serial number)
+1-bare Metal is 0 th
+2-bare Metal is 1 st
+3:bare metal is 2 nd
+4-Bare metal is 3 rd
+5-Bare Metal is 4 th
+-------------------------------------------------------
+ocalhost:~# grep '^[a-zA-Z]' test.txt  //dispaly only string line not fully numbers line
+bare Metal is 0 th
+bare Metal is 1 st
+bare metal is 2 nd
+Bare metal is 3 rd
+Bare Metal is 4 th
+localhost:~# cat test.txt
+00000000
+bare Metal is 0 th
+bare Metal is 1 st
+222222222222
+bare metal is 2 nd
+Bare metal is 3 rd
+Bare Metal is 4 th
+11111111111
+-------------------------------------------------------
+localhost:~# cat test.txt | grep Metal
+bare Metal is 0 th
+bare Metal is 1 st
+Bare Metal is 4 th
+localhost:~# cat test.txt | grep metal
+bare metal is 2 nd
+Bare metal is 3 rd

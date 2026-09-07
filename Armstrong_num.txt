@@ -1,0 +1,35 @@
+#include <iostream>
+#include <string>
+#include <cstring>
+
+using namespace std;
+
+
+int main()
+{
+    int org_arm_st = 152;
+    
+    int tmp_arm_st, remain_num, arm_st_num = 0;
+    
+    tmp_arm_st = org_arm_st;
+    
+    while(org_arm_st != 0)
+    {
+        remain_num = org_arm_st%10;
+        
+        arm_st_num += remain_num * remain_num * remain_num;
+        
+        org_arm_st = org_arm_st/10;
+    }
+    
+    if(arm_st_num == tmp_arm_st)
+    {
+        cout<<"Armstrong Number"<<endl;
+    }
+    else
+        {
+        cout<<"Not an Armstrong Number"<<endl;
+    }
+    
+    return 0;
+}

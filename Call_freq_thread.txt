@@ -1,0 +1,146 @@
+// C++ program to demonstrate how to insert vector as values 
+// in a map 
+
+#include <iostream> 
+#include <chrono>
+#include <map> 
+#include <vector> 
+#include "unistd.h"
+using namespace std; 
+
+class Temp
+{
+  map<string,vector<int>>map_it;
+  map<string,int>map_avg;
+  
+  vector<int>v1;
+  vector<int>v2;
+  vector<int>v3;
+  public:
+  void collect_temp()
+  {
+    int S = Silchar();
+    v1.push_back(S);
+    
+    int K = Karimganj();
+    v2.push_back(K);
+    
+    int M = Mumbai();
+    v3.push_back(M);
+    
+    adding_map();
+    
+    avg_temp();
+    
+  }
+  
+  
+  int Silchar()
+  {
+    srand(time(NULL));
+    int x = rand()%50;
+    return x;
+  }
+  
+  int Karimganj()
+  {
+    srand(time(NULL));
+    int x = rand()%50+2;
+    return x;
+  }
+  
+  int Mumbai()
+  {
+    srand(time(NULL));
+    int x = rand()%50+3;
+    return x;
+  }
+  void adding_map()
+  {
+    map_it["Silchar"] = v1;
+    map_it["Karimganj"] = v2;
+    map_it["Mumbai"] = v3;
+  }
+  
+  void avg_temp()
+  {
+    int x = 0;
+    int y = 0;
+    int z = 0;
+    for(const auto& i :v1)
+    {
+      x = x+i;
+    }
+    map_avg["Silchar"] = x;
+    
+    for(const auto& i :v2)
+    {
+      y = y+i;
+    }
+    map_avg["Karimganj"] = y;
+    
+    for(const auto& i :v3)
+    {
+      z = z+i;
+    }
+    map_avg["Mumbai"] = z;
+  }
+  
+  void display()
+  {
+    for(const auto& i :map_avg)
+    {
+      cout<<"City Name ::>> "<<i.first<<endl;
+      cout<<"City Temp ::>> "<<i.second<<endl;
+    }
+  }
+  void clean_vec_map()
+  {
+    v1.clear();
+    v2.clear();
+    v3.clear();
+    map_it.clear();
+    map_avg.clear();
+  }
+  
+    
+};
+
+int main() 
+{
+  Temp T_obj;
+    int sleep_time = 10;
+    while(true) 
+    { 
+          sleep(sleep_time);
+          //std::chrono::milliseconds(sleep_time);
+          T_obj.collect_temp();
+          T_obj.display();
+          T_obj.clean_vec_map();
+    }
+
+return 0;
+}
+
+
+/*#include <iostream> 
+#include <map> 
+#include <vector> 
+#include "unistd.h"
+
+using namespace std; 
+void call_function()
+{
+    cout<<"Hello"<<endl;
+}
+int main() 
+{
+    int sleep_time = 30000000;
+    while(true) 
+    { 
+          usleep(sleep_time);
+          call_function();
+    }
+
+return 0;
+}*/

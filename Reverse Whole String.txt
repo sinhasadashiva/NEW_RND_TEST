@@ -1,0 +1,49 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <map>
+#include <iomanip>
+#include <cstring>
+
+using namespace std;
+
+/*
+write the function , that reverses given string var in-place
+string str = "Hello world";
+myReverse(str)
+str -> "dlrow olleH"
+
+*/
+/*string myReverse(string &str)
+{
+  int full_len=str.length()-1;
+  int size = (str.length())/2;
+  char str_temp;
+  for(int i=0;i<=size;i++,full_len--)
+  {
+    str_temp = str[i] ;
+    str[i]  = str[full_len];
+    str[full_len] = str_temp;
+  }
+  return str;
+}*/
+
+string myReverse(string &str)
+{
+  string temp_str="";
+  for(int i=str.length();i>=0;i--)
+  {
+       temp_str += str[i];
+  }
+  str=temp_str;
+  return str;
+}
+
+int main()
+{
+  string str = "Hello world";
+  string result = myReverse(str);
+  cout << "Reserved: " << str;
+    
+  return 0;
+}

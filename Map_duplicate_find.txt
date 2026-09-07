@@ -1,0 +1,29 @@
+#include<iostream>
+#include<unordered_map>
+using namespace std;
+
+void displayDuplicates(int arr[], int n) 
+{
+   unordered_map<int, int> mp;
+   for (int i=0; i<n; i++)
+   {
+        mp[arr[i]]++;
+   }
+  
+   unordered_map<int, int>:: iterator itr;
+   for (itr=mp.begin(); itr!=mp.end(); itr++) 
+   {
+      if (itr->second > 1) 
+      {
+         cout << itr->first << " ";
+      }
+   }
+}
+
+int main() 
+{
+   int arr[] = {12, 15, 12, 3, 6, 12, 3, 48, 56, 8, 48};
+   int n = sizeof(arr) / sizeof(arr[0]);
+   cout << "Duplicate elements are: ";
+   displayDuplicates(arr, n);
+}

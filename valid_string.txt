@@ -1,0 +1,75 @@
+#include<iostream>
+#include<stack>
+#include<cstring>
+
+using namespace std;
+
+bool validate(char F_st, char S_nd)
+{
+    if((F_st == '(' && S_nd == ')')||(F_st == '{' && S_nd == '}')||(F_st == '[' && S_nd == ']'))
+    {
+       return 1;
+    }
+    else
+    {
+       return 0;
+    }
+}
+
+int main()
+{
+    stack<char>stl_st;
+    bool status;
+    string st = "To other countries, I may go as a tourist, [but to India], [I come as a pilgrim]}.";
+    //string st = "{(To other countries, (I may go as a tourist), [but to India], I come as a pilgrim}";
+
+
+    for(int i=0;i<st.length();i++)
+    {
+        if(st[i]=='['||st[i]=='{'||st[i]=='(')
+        {
+            stl_st.push(st[i]);
+        }
+    
+        if(st[i]==']'||st[i]=='}'||st[i]==')')
+        {
+            char del='\0';
+            if(!stl_st.empty())
+            {
+                del = stl_st.top();
+            }
+            cout<<"Open Bracket::>> "<<del<<" "<<"Close Bracket::>> "<<st[i]<<endl;
+            
+            if(stl_st.empty())
+            {
+                status = 0;
+                break;
+            }
+            stl_st.pop();
+            status = validate(del,st[i]);
+            
+            if(status == 1)
+            {
+                continue;
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+
+    if(status == 1 && stl_st.empty())
+        cout<<"Balaced string."<<endl;
+    else
+    {
+        if(!stl_st.empty())
+        {
+            cout<<"There is an extra open bracket, and the string is not valid"<<endl;
+        }
+        else
+            cout<<"There is an extra close bracket, and the string is not valid"<<endl;
+    }
+  
+return 0;
+}

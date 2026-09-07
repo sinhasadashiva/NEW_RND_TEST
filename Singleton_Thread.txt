@@ -1,0 +1,193 @@
+#include <iostream>
+#include <vector>
+#include <mutex>
+#include <thread>
+
+using namespace std;
+
+class Singleton
+{
+private:
+
+Singleton()
+{
+cout<<"Cons"<<endl;
+}
+
+~Singleton()
+{
+cout<<"Desc"<<endl;
+}
+public:
+static Singleton *single;
+static Singleton* getInstance();
+static Singleton* destroy();
+
+
+static mutex mute_init;
+};
+Singleton* Singleton::single = NULL;
+
+mutex Singleton::mute_init;
+
+Singleton* Singleton::getInstance()
+{
+
+lock_guard<mutex> lock(mute_init);
+
+if(single == NULL)
+{
+single = new Singleton();
+return single;
+}
+else
+{
+return single;
+}
+}
+
+Singleton* Singleton::destroy()
+{
+lock_guard<mutex> lock(mute_init);
+if(single != NULL)
+{
+    delete single;
+    single = NULL;
+}
+ return single;
+}
+
+
+int main()
+{
+vector<thread>threads;
+
+for(auto i =0;i<10;i++)
+{
+    threads.emplace_back(thread([](){ 
+      Singleton::getInstance(); 
+      
+      Singleton::destroy();
+    
+    }));
+}
+
+for(auto& t: threads)
+{
+    if(t.joinable())
+    {
+        t.join();
+    }
+}
+
+return 0;
+}
+
+----------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------
+
+
+
+ #include <bits/stdc++.h>
+ #include <mutex>
+ #include <thread>
+using namespace std;
+
+ mutex mt;
+class singleton
+{
+    singleton()
+    {
+        cout<<"Cons"<<endl;
+    }
+    
+    ~singleton()
+    {
+        cout<<"Desc"<<endl;
+    }
+    public:
+    static singleton *obj;
+    
+    static singleton *init();
+    
+    static singleton *destroy();
+};
+
+ singleton *singleton::obj=NULL;
+ 
+ singleton *singleton::init()
+ {
+     lock_guard<mutex>locker(mt);
+     if(obj==NULL)
+     {
+         obj = new singleton();
+         return obj;
+     }
+     else
+     {
+        return obj;
+     }
+ }
+ 
+ singleton *singleton::destroy()
+ {
+     lock_guard<mutex>locker(mt);
+     if(obj != NULL)
+     {
+        delete obj;
+        obj = NULL;
+        return obj;
+     }
+     else
+     {
+        return obj;
+     }
+ }
+
+int main()
+{
+   /*thread t1([](){
+       singleton::init();
+       
+       singleton::destroy();
+       });
+   
+   thread t2([](){
+       singleton::init();
+       
+       singleton::destroy(); 
+       });*/
+	   
+   /*thread t1;
+        t1= thread([](){
+		singleton::init();
+
+		singleton::destroy();
+		});
+		
+		
+   thread t2;
+        t2= thread([](){
+		singleton::init();
+
+		singleton::destroy();
+		});*/
+       thread t[3];
+       for(int i =0;i<3;i++)
+       {
+            t[i] = thread([](){
+             singleton::init();
+       
+             singleton::destroy();
+            });
+       }
+   
+   for(int i =0;i<3;i++)    
+   if(t[i].joinable())
+    {
+        t[i].join();
+    }    
+   
+   
+return 0;
+}

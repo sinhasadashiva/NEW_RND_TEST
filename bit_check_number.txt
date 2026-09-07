@@ -1,0 +1,47 @@
+ #include <bits/stdc++.h>
+
+using namespace std;
+
+
+
+bool is_power(int x) // 14 12/2 6/2 3/2   16/2 8/2 4/2
+{
+
+bool val = true;
+
+int rem = x;
+
+if(rem == 1 || rem == 2)
+{
+    return true;
+}
+
+while(val)
+{
+	if(rem >= 2)
+	{
+	    if(rem == 3||rem%2!=0)
+	    {
+	        return false;
+	    }
+	    else if(rem == 1 || rem == 2)
+        {
+            return true;
+        }
+	    rem = rem / 2;
+		val = true;
+	}
+}
+return true;
+}
+
+int main()
+{
+    int test = 5;
+    bool x = is_power(test);
+    if(x == true)
+    cout<<test<<" is true";
+    else
+    cout<<test<<" is false";
+    return 0;
+}

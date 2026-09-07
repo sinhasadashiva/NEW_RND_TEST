@@ -1,0 +1,73 @@
+#include <iostream>
+#include <map>
+#include <vector>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+void generatePalindromes(const string& str)
+{
+    map<char, int> freq;
+
+    // Count characters
+    for (char ch : str)
+        freq[ch]++;
+
+    // Check whether palindrome is possible
+    int oddCount = 0;
+    char middle = '\0';
+
+    for (auto& p : freq)
+    {
+        if (p.second % 2 != 0)
+        {
+            oddCount++;
+            middle = p.first;
+        }
+    }
+
+    // More than one odd frequency -> impossible
+    if (oddCount > 1)
+    {
+        cout << "No palindrome can be formed\n";
+        return;
+    }
+
+    // Create first half
+    string half;
+
+    for (auto& p : freq)
+    {
+        half += string(p.second / 2, p.first);
+    }
+
+    // Generate all unique permutations of first half
+    sort(half.begin(), half.end());
+    
+    do
+    {
+        string right = half;
+
+        reverse(right.begin(), right.end());
+
+        string palindrome = half;
+
+        if (oddCount == 1)
+            palindrome += middle;
+
+        palindrome += right;
+
+        cout << palindrome << endl;
+
+    } while (next_permutation(half.begin(), half.end()));
+}
+
+int main()
+{
+    string str = "aabbcc";
+
+    generatePalindromes(str);
+
+    return 0;
+}

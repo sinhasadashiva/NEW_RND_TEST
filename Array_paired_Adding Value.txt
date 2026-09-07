@@ -1,0 +1,107 @@
+#include <bits/stdc++.h>
+#include <iostream>
+#include<vector>
+
+using namespace std;
+
+void find_job(int A[],int start_point,int arr_size,vector<string>&V_list)
+{
+string Fst, Snd;
+string final_comb;
+int total=0, total_sum=12;
+   
+   for(int i =start_point;i<arr_size;i++)
+   {
+       if(total<total_sum)
+       {
+            total = total+A[i] ; 
+           
+            if(total == total_sum)
+            {
+                Fst = to_string(start_point+1);
+                Snd = to_string(i+1);
+                cout << "1st Index_no::>> "<<start_point+1<<"  &Value::>> "<<A[start_point]<<endl;
+                cout<<"2nd Index_no::>> "<<i+1<<"  &Value::>> "<<A[i]<<endl;
+                cout << "Total::>> "<<total<<endl<<endl;
+                final_comb = '('+Fst + ',' + Snd +')';
+                V_list.push_back(final_comb);
+            }
+       }
+   }
+}
+
+int main() {
+   
+   // N = 5, S = 12
+   int A[] = {1,11,3,7,5};
+   
+   int start_p = 0;
+   int arr_size = sizeof(A)/sizeof(A[0]);
+   
+   vector<string>V_list;
+   
+   for(int i=0;i<arr_size;i++)
+   {
+       find_job(A,start_p,arr_size,V_list);
+       start_p++;
+   }
+   
+   cout<<"Final Pairs Value::>> ";
+   int count = 1;
+   for(auto i : V_list)
+   {
+     if(count==V_list.size())
+        cout<<i;
+     else
+        cout<<i<<",";
+     
+     count++;
+   }
+return 0;
+}
+
+
+----------------------------------------------------------------
+
+#include <iostream>
+
+using namespace std;
+
+bool find_job(int A[],int start_point)
+{
+int total=0, total_sum=12;
+bool return_val = false;
+   
+   for(int i =start_point;i<5;i++)
+   {
+       if(total<total_sum)
+       {
+            total = total+A[i] ;
+           
+            if(total == total_sum)
+            {
+                cout << "1st Index_no::>> "<<start_point+1<<endl;
+                cout<<"2nd Index_no::>> "<<i+1<<endl<<endl;
+            }
+       }
+   
+   }
+   
+return return_val;
+}
+
+int main() {
+   
+   // N = 5, S = 12
+   int A[] = {1,11,3,7,5};
+   
+   int start_p = 0;
+      
+   cout << "Total::>> 12"<<endl;
+   for(int i=0;i<sizeof(A);i++)
+   {
+       j = find_job(A,start_p);
+       start_p++;
+   }
+return 0;
+}

@@ -1,0 +1,114 @@
+#include<iostream>
+using namespace std;
+
+class c_queue
+{
+  int data;
+  c_queue * head;
+  c_queue * next_ptr;
+  int size;
+  public:
+  c_queue() 
+  {
+    next_ptr = NULL;
+    head = NULL;
+    size = 0;
+  }
+  
+void queuePush(int x) 
+{
+    c_queue * element = new c_queue();
+    
+    element ->data = x;
+    
+    c_queue * element_travel = head;
+    
+    if(element_travel == NULL)
+    {
+        element -> next_ptr = head;
+        head = element;
+    }
+    else
+    {
+       while(element_travel->next_ptr != NULL)
+	    {
+	        element_travel = element_travel->next_ptr;
+	    } 
+	    
+	    element_travel->next_ptr = element;
+	    element->next_ptr = NULL; 
+    }
+    cout << "Element pushed::> " <<element ->data<<endl<<endl;
+    size++;
+}
+
+int queuePop() 
+{
+    if (head == NULL) 
+	{
+      return -1;
+    }
+    
+    c_queue * first_ele;
+    
+    first_ele = head;
+    head = first_ele -> next_ptr;
+	int topData = first_ele -> data;
+    
+    delete first_ele;
+    size--;
+    return topData;
+}
+
+  int queueSize() 
+  {
+    return size;
+  }
+  
+  bool queueIsEmpty() 
+  {
+    return head == NULL;
+  }
+  
+  int queuePeek() 
+  {
+    if (head == NULL) return -1;
+    return head -> data;
+  }
+  
+  void printQueue() 
+  {
+    int count=0;
+    c_queue * current = head;
+    while (current != NULL) 
+    {
+      cout << current -> data << " ";
+      current = current -> next_ptr;
+    }
+    cout<<endl<<"------------------------------------------------------------"<<endl;
+  }
+};
+
+
+int main() {
+  c_queue s;
+  s.queuePush(10);
+  s.queuePush(5);
+  s.queuePush(20);
+  
+  //cout << "Element popped:> " << s.queuePop() << "\n";
+  cout << "Queue size:> " << s.queueSize() << "\n";
+  cout <<"Queue empty or not? "<<s.queueIsEmpty()<<"\n";
+  cout << "Queue's top element: " << s.queuePeek() << "\n";
+  s.printQueue();
+  s.queuePush(40);
+  cout << "Before popped element:> ";
+  s.printQueue();
+  cout<<endl;
+  cout << "Element popped:> " << s.queuePop() << "\n";
+  cout << "Queue size:> " << s.queueSize() << "\n";
+  cout <<"Queue empty or not? "<<s.queueIsEmpty()<<"\n";
+  cout << "Queue's top element: " << s.queuePeek() << "\n";
+  s.printQueue();
+  return 0;
+}

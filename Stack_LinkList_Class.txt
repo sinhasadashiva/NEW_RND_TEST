@@ -1,0 +1,96 @@
+#include<iostream>
+using namespace std;
+
+class stack 
+{
+  int data;
+  stack * head;
+  stack * next_ptr;
+  int size;
+  public:
+  stack() 
+  {
+    next_ptr = NULL;
+    head = NULL;
+    size = 0;
+  }
+  
+  void stackPush(int x) {
+    stack * element = new stack();
+    element ->data = x;
+    stack * element_travel = head;
+    
+    if(element_travel == NULL)
+    {
+        element ->next_ptr = head;
+        head = element;
+    }
+    else
+    {
+        while(element_travel->next_ptr != NULL)
+	    {
+	        element_travel = element_travel->next_ptr;
+	    } 
+	    
+	    element_travel->next_ptr = element;
+	    element->next_ptr = NULL;
+    }
+    cout << "Element pushed::> " <<element ->data<< "\n";
+    size++;
+  }
+  
+  int stackPop() {
+    if (head == NULL) {
+      return -1;
+    }
+    int headData;
+    stack * temp = head;
+    stack *last_element;
+    while(temp->next_ptr->next_ptr!=NULL)
+	{
+		temp = temp->next_ptr;
+	}
+    
+    last_element = temp->next_ptr;
+    temp->next_ptr = NULL;
+    headData = last_element -> data;
+    delete last_element;
+    size--;
+    
+    return headData;
+  }
+  
+  int stackSize() {
+    return size;
+  }
+  bool stackIsEmpty() {
+    return head == NULL;
+  }
+  int stackPeek() {
+    if (head == NULL) return -1;
+    return head -> data;
+  }
+  void printStack() 
+  {
+    int count=0;
+    stack * current = head;
+    while (current != NULL) 
+    {
+      cout << current -> data << " ";
+      current = current -> next_ptr;
+    }
+    
+  }
+};
+int main() {
+  stack s;
+  s.stackPush(10);
+  s.stackPush(5);
+  s.stackPush(20);
+  cout << "Element popped:> " << s.stackPop() << "\n";
+  cout << "Stack size:> " << s.stackSize() << "\n";
+  cout <<"Stack empty or not? "<<s.stackIsEmpty()<<"\n";
+  cout << "stack's head element: " << s.stackPeek() << "\n";
+  s.printStack();
+  return 0;
+}

@@ -1,0 +1,87 @@
+
+#include <iostream>
+#include <memory>
+using namespace std;
+
+class shape
+{
+  public:
+  virtual void draw() = 0;
+  virtual ~shape()
+  {
+      cout<<"shape Desc"<<endl;
+  }
+};
+
+class shape_triangle:public shape
+{
+    public:
+    void draw()
+    {
+        cout<<"shape_triangle created"<<endl;
+    }
+};
+
+class shape_square:public shape
+{
+    public:
+    void draw()
+    {
+        cout<<"shape_square created"<<endl;
+    }
+};
+
+
+
+class shape_factory
+{
+    public:
+    virtual shape *create_shape() = 0;
+    virtual ~shape_factory()
+    {
+      cout<<"shape_factory Desc"<<endl;
+    }
+};
+
+class shape_triangle_fact:public shape_factory
+{
+    shape *create_shape()
+    {
+        return new shape_triangle();
+    }
+};
+
+
+class shape_square_fact:public shape_factory
+{
+    shape *create_shape()
+    {
+        return new shape_square();
+    }
+    
+    //shape *create_shape = [](){ return new shape_square();};
+};
+
+int main()
+{
+    //shape_factory *obj_shape_triangle_fact = new shape_triangle_fact();
+    
+    unique_ptr<shape_factory> obj_shape_triangle_fact (new shape_triangle_fact());
+    
+    //shape_factory *obj_shape_square_fact = new shape_square_fact();
+    
+    unique_ptr<shape_factory> obj_shape_square_fact (new shape_square_fact());
+    
+    
+    //shape *obj_shape_triangle = obj_shape_triangle_fact->create_shape();
+    unique_ptr<shape> obj_shape_triangle (obj_shape_triangle_fact->create_shape());
+    
+    //shape *obj_shape_square = obj_shape_square_fact->create_shape();
+    unique_ptr<shape> obj_shape_square (obj_shape_square_fact->create_shape());
+    
+    obj_shape_triangle->draw();
+    
+    obj_shape_square->draw();
+
+    return 0;
+}

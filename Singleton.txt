@@ -1,0 +1,52 @@
+// Online C++ compiler to run C++ program online
+#include <iostream>
+using namespace std;
+
+class singleton
+{
+  singleton();
+  static singleton *obj;
+  public:
+  static singleton *init();
+  void display();
+};
+
+singleton *singleton::obj=nullptr;
+
+singleton::singleton()
+{
+    cout<<"Singleton Cons"<<endl;
+}
+singleton *singleton::init()
+{
+    if(obj==nullptr)
+    {
+        cout<<"Creating Obj"<<endl;
+        obj = new singleton();
+        return obj;
+    }
+    cout<<"already created"<<endl;
+    return obj;
+}
+void singleton::display()
+{
+    cout<<"Hi Display"<<endl;
+}
+
+int main() 
+{
+    singleton *S1,*S2;
+    S1 = singleton::init();
+    S1->display();
+    S2 = singleton::init();
+    S2->display();
+    if(S1==S2)
+    {
+        cout<<"Same"<<endl;
+    }
+    else
+    {
+        cout<<"Not Same"<<endl;
+    }
+    return 0;
+}
