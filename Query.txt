@@ -7,3 +7,50 @@
  =============================
  select distinct salary from employee order by salary DESC limit 1 offset 1;
  
+ 
+ 
+ function in SQL
+ ===============
+DELIMITER //
+
+CREATE FUNCTION add_numbers(a INT, b INT)
+RETURNS INT
+DETERMINISTIC
+BEGIN
+    RETURN a + b;
+END //
+
+DELIMITER ;
+
+
+Stored Procedure in SQL
+=======================
+DELIMITER //
+
+CREATE PROCEDURE get_employee(IN emp_id INT)
+BEGIN
+    SELECT *
+    FROM employee
+    WHERE id = emp_id;
+END //
+
+DELIMITER ;
+
+
+
+Trigger in SQL
+==============
+DELIMITER //
+
+CREATE TRIGGER salary_audit
+AFTER UPDATE ON employee
+FOR EACH ROW
+BEGIN
+    INSERT INTO employee_details
+        (employee_id, old_salary, new_salary)
+    VALUES
+        (OLD.id, OLD.salary, NEW.salary);
+END //
+
+DELIMITER ;
+ 
