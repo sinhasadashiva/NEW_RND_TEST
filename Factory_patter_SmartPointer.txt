@@ -64,19 +64,13 @@ class shape_square_fact:public shape_factory
 
 int main()
 {
-    //shape_factory *obj_shape_triangle_fact = new shape_triangle_fact();
     
     unique_ptr<shape_factory> obj_shape_triangle_fact (new shape_triangle_fact());
     
-    //shape_factory *obj_shape_square_fact = new shape_square_fact();
-    
     unique_ptr<shape_factory> obj_shape_square_fact (new shape_square_fact());
     
-    
-    //shape *obj_shape_triangle = obj_shape_triangle_fact->create_shape();
     unique_ptr<shape> obj_shape_triangle (obj_shape_triangle_fact->create_shape());
     
-    //shape *obj_shape_square = obj_shape_square_fact->create_shape();
     unique_ptr<shape> obj_shape_square (obj_shape_square_fact->create_shape());
     
     obj_shape_triangle->draw();

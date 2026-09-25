@@ -8,6 +8,10 @@ char *remove_white_spaces(char *str)
 		if (str[i] != ' ')
             str[j++] = str[i];
 		i++;
+		
+	  /*if (str[i] == ' ')
+		  i++;
+        str[j++] = str[i++];*/
 	}
 	str[j] = '\0';
 	return str;

@@ -22,61 +22,33 @@ void reverseWords(string s)
    
     tmp.push_back(str);
 
-    int no_of_loop = tmp.size()/2;
-    int i,j,count=-1;
-    
-    if(tmp.size() == 3 )
+    int left = 0;
+    int right = tmp.size() - 1;
+
+    while (left <= right)
     {
-        for(i = 0,j=no_of_loop+2; i<=no_of_loop;i++,j--)
-        {
-            final += tmp[i];
-            final += " ";
-            final += tmp[j];
-        }
+       final += tmp[left];
+
+       if (left != right)
+       {
+          final += " ";
+          final += tmp[right];
+       }
+
+          final += " ";
+
+          left++;
+          right--;
     }
-    else if(tmp.size() % 2 != 0)
-    {
-        for(i = 0,j=no_of_loop+2; i<=no_of_loop;i++,j--)
-        {
-            if(count == no_of_loop-1)
-            {
-                final += tmp[i];
-                final += " ";
-            }
-            else
-            {
-                final += tmp[i];
-                final += " ";
-                final += tmp[j];
-                final += " ";
-            }
-            count++;
-        }
-    }
-    else
-    {
-        for(i = 0,j=no_of_loop+2; i<no_of_loop;i++,j--)
-        {
-                final += tmp[i];
-                final += " ";
-                final += tmp[j];
-                final += " ";
-        }
-    }
-    
-//ereh olleH ma dlroW I  
-//siht ekil i
-//won olleH ereh dlroW ma I
+
    cout << final <<endl; 
 }
  
 int main()
 {
-    //output - "i ekil siht"
-    //string s = "i like this";
-    //string s = "Hello World I am here now";
+    string s = "i like this";  //siht ekil i
+    //string s = "Hello World I am here now";  //won olleH ereh dlroW ma I
     
-    string s = "Hello World I am here";
     reverseWords(s);
     return 0;
 }

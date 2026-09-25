@@ -1,15 +1,14 @@
-// C++ Program to demonstrate a pure virtual destructor
 #include <iostream>
 #include <map> 
-//using namespace std;
+using namespace std;
 
 
 int main(){
     
     
-std::map< int,std::map<std::string,double> > map_data;
+map< int,map<string,double> > map_data;
 
-std::map<std::string, double> data;
+map<string, double> data;
 
 data.emplace("window", 3.14);
 
@@ -17,13 +16,13 @@ data.emplace("windoww", 3.16);
 
 map_data.emplace(0, data);
 
-std::map<std::string, double>::iterator itr1;
-std::map<int, std::map<std::string, double> >::iterator itr2;
+map<string, double>::iterator itr1;
+map<int, map<string, double> >::iterator itr2;
 for(itr2 = map_data.begin(); itr2 != map_data.end(); itr2++)
 {
 for(itr1 = data.begin(); itr1 != data.end(); itr1++)
 {
-std::cout << "\n*^*Window: " << itr2->first << " \ " << itr1->first << " \ " << itr1->second;
+cout << "\n*^*Window: " << itr2->first << " \ " << itr1->first << " \ " << itr1->second;
 }
 }
     

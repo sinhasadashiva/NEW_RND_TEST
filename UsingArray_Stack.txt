@@ -1,0 +1,99 @@
+ #include <stdio.h>   
+#include<stdlib.h>  
+#define maxsize 5  
+ 
+int front = -1;  
+int stack[maxsize];  
+
+void insert()  
+{  
+    int item;  
+    printf("\nEnter the element\n");  
+    scanf("\n%d",&item);      
+    if(front == maxsize-1)  
+    {  
+        printf("\nOVERFLOW\n");  
+        return;  
+    }  
+    if(front == -1)  
+    {  
+        front = 0;  
+    }  
+    else   
+    {  
+        front = front+1;  
+    }  
+    stack[front] = item;  
+    printf("\nValue inserted ");  
+      
+} 
+
+void del()  
+{  
+    //int item;   
+    if (front == -1)  
+    {  
+        printf("\nUNDERFLOW\n");  
+        return;  
+              
+    }  
+    else  
+    {   
+        if(front == 0)  
+        {  
+            front = -1;  
+        }  
+        else   
+        {  
+            front = front - 1;  
+        }
+        printf("\nvalue deleted ");  
+    }  
+}  
+      
+void display()  
+{  
+    int i;  
+    if(front == -1)  
+    {  
+        printf("\nEmpty stack\n");  
+    }  
+    else  
+    {   printf("\nprinting values .....\n");  
+        for(i=0;i<=front;i++)  
+        {  
+            printf("\n%d\n",stack[i]);  
+        }     
+    }  
+}  
+
+int main ()  
+{  
+    int choice;   
+    while(choice != 4)   
+    {     
+        printf("\n*************************Main Menu*****************************\n");  
+        printf("\n=================================================================\n");  
+        printf("\n1.insert an element\n2.Delete an element\n3.Display the stack\n4.Exit\n");  
+        printf("\nEnter your choice ?");  
+        scanf("%d",&choice);  
+        switch(choice)  
+        {  
+            case 1:  
+            insert();  
+            break;  
+            case 2:  
+            del();  
+            break;  
+            case 3:  
+            display();  
+            break;  
+            case 4:  
+            exit(0);  
+            break;  
+            default:   
+            printf("\nEnter valid choice??\n");  
+        }  
+    }  
+return 0;
+}  
